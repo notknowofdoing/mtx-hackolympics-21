@@ -12,4 +12,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  OAuth(){
+    window.location.assign('http://localhost:3000/oauth/authenticate')
+  }
 }
