@@ -1,5 +1,6 @@
 const express = require('express')
 const generateAuthUrl = require('./oAuthUrlGenerator')
+const cors = require('cors')
 
 /* configuration values for hosting */
 const h_cfg = {
@@ -15,6 +16,8 @@ const h_cfg = {
 }
 
 const app = express()
+
+app.use("*", cors())
 
 app.use(express.json())
 
