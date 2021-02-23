@@ -1,4 +1,4 @@
-const app = require('express')()
+const express = require('express')
 const generateAuthUrl = require('./oAuthUrlGenerator')
 
 /* configuration values for hosting */
@@ -13,6 +13,10 @@ const h_cfg = {
 		domain: process.env.FDOMAIN || "localhost"
 	}
 }
+
+const app = express()
+
+app.use(express.json())
 
 app.listen(h_cfg.backend.port, () => {
 	console.log(`Express server started\
@@ -29,6 +33,16 @@ app.get('/oauth/generate-url', (req, res) => {
 		.then((authUrl) => {
 			res.status(302).redirect(authUrl)
 		})
+})
+
+app.post('/oauth/authenticate', (req, res) => {
+
+	if (req.body.code) {
+		res.status(200).json({ isSuccess: true, jwt: "/*TODO: will implement later*/" })
+	} else {
+		res.status(400).json({ isSuccess: false, err: "there was no `code` key in the json body OR there was no json body", body: req.body })
+	}
+
 })
 
 /* redirect all unhandled routes to frontend */
