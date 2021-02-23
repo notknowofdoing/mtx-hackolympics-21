@@ -1,0 +1,36 @@
+{
+  "name": "geacpyy_deploy-backend",
+  "version": "1.0.0",
+  "description": "submission for MTX Hackolympics 2021. a service that creates and generates authentication apis and keys for endusers (developers) and encrypts them with mozilla/sops to permit checking secrets into vcs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "prestart": "npm install",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/notknowofdoing/mtx-hackolympics-21"
+  },
+  "keywords": [
+    "hackathon",
+    "sops",
+    "gcp",
+    "cloud",
+    "deploy",
+    "apikey",
+    "secret"
+  ],
+  "author": "kevin.nl.samuel@gmail.com",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "execa": "^5.0.0",
+    "express": "^4.17.1",
+    "google-auth-library": "^7.0.2",
+    "googleapis": "^67.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
