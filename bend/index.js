@@ -1,6 +1,9 @@
 const express = require('express')
 const generateAuthUrl = require('./oAuthUrlGenerator')
 const cors = require('cors')
+const execa = require('execa')
+
+const keys = JSON.parse(execa.sync("./external_deps/sops", ["-d", "cr.enc.json"]).stdout)
 
 /* configuration values for hosting */
 const h_cfg = {
@@ -17,9 +20,15 @@ const h_cfg = {
 
 const app = express()
 
-app.use("*", cors())
-
 app.use(express.json())
+
+app.use("*", cors())
+app.use((req, res, next) => {
+	res.setHeader('Access-Control-Allow-Origin', "*")
+	next()
+})
+
+
 
 app.listen(h_cfg.backend.port, () => {
 	console.log(`Express server started\
@@ -28,18 +37,18 @@ app.listen(h_cfg.backend.port, () => {
 })
 
 app.get('/', (req, res) => {
-	res.status(200).end("STATUS 200: GET /")
+	res.status(200).json(keys)
 })
 
 app.get('/oauth/generate-url', (req, res) => {
-	generateAuthUrl(h_cfg.env)
+	generateAuthUrl(keys, h_cfg.env)
 		.then((authUrl) => {
 			res.status(302).redirect(authUrl)
 		})
 })
 
 app.post('/oauth/authenticate', (req, res) => {
-
+	res.setHeader('Access-Control-Allow-Origin', "*")
 	if (req.body.code) {
 		res.status(200).json({ isSuccess: true, jwt: "/*TODO: will implement later*/" })
 	} else {

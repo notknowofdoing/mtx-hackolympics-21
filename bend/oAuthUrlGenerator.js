@@ -1,8 +1,6 @@
 const { OAuth2Client } = require('google-auth-library')
 
-const keys = require('./credentials.json')
-
-function generator(env) {
+function generator(keys, env) {
 	return new Promise((resolve, reject) => {
 		const client = new OAuth2Client(
 			keys.web.client_id,
