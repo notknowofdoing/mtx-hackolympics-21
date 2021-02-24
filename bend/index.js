@@ -1,5 +1,6 @@
 const express = require('express')
 const generateAuthUrl = require('./oAuthUrlGenerator')
+const generateToken = require('./tokenGenerators')
 const execa = require('execa')
 const cors = require('cors')
 const platform = require('os').platform()
@@ -43,9 +44,12 @@ app.listen(h_cfg.backend.port, () => {
 	console.log(h_cfg)
 })
 
-app.get('/', (req, res) => {
-	res.status(200).json(keys)
-})
+/*test endpoint not to be used in deployment*/
+if (h_cfg.env === 'dev') {
+	app.get('/', (req, res) => {
+		res.status(200).json(keys)
+	})
+}
 
 app.get('/oauth/generate-url', (req, res) => {
 	generateAuthUrl(keys, h_cfg.env)
@@ -56,10 +60,28 @@ app.get('/oauth/generate-url', (req, res) => {
 
 app.post('/oauth/authenticate', (req, res) => {
 	if (req.body.code) {
-		res.status(200).json({ isSuccess: true, jwt: "/*TODO: will implement later*/" })
+		generateToken(keys, req.body.code).then((jswtoken) =>
+			res.status(200).json({ isSuccess: true, jwt: jswtoken })
+		)
 	} else {
 		res.status(400).json({ isSuccess: false, err: "there was no `code` key in the json body OR there was no json body", body: req.body })
 	}
+})
+
+app.post('/auth/create', (req, res) => {
+	if (!req.query.projectName) {
+		res.status(401).json({ isSucces: false, err: "there is no project name specified" })
+	}
+	const projName = req.query.projectName
+	/*make request to GCP Resource Management API to create project with `projName`*/
+	/*make request to GCP Auth Lib API for creating API key `projName-api-key`*/
+	/*save API keys to temporory file (preferably FIFO) */
+	/*make request to GCP Auth LIb API for Authentication Credentials*/
+
+	/*use credentials with sops binary and `execa`
+		to create GCP KMS keyring, key and encrypt json in temporaryfile */
+
+	/*res.send(200).json(encryptedAPIKey)*/
 })
 
 /* redirect all unhandled routes to frontend */
