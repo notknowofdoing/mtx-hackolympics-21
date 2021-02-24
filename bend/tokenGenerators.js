@@ -35,7 +35,7 @@ function main(keys, code) {
 			console.log(googletoken)
 			console.log(jswtoken)
 
-			/*hash save both tokens to db*/
+			/*hash & save both tokens to db*/
 
 			resolve(jswtoken)
 		})
