@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -34,9 +35,10 @@ export class OauthComponent implements OnInit {
       code: this.param
     }
     this.http.post("http://localhost:3000/oauth/authenticate", this.key).subscribe((response) => {
-      console.log(response)
+      // console.log(response)
       this.loading = false;
       this.response = response
+      console.log(this.response.isSuccess)
       this.token = this.response.jwt
       // if(response != null){
       //   this.nullResponse = false;
@@ -58,14 +60,14 @@ export class OauthComponent implements OnInit {
   }
 
   onSubmit(){
-    // const name = this.formz.value.project;
+    const name = this.formz.value.project;
+    console.log(name)
+    const headers= new HttpHeaders().set('content-type', 'application/json').set('Access-Control-Allow-Origin', '*').append('token', this.token);
+    // return this.httpClient.get(this.baseURL + 'users/' + userName + '/repos', { 'headers': headers })
+    this.http.post("http://localhost/3000/auth/create",name, {'headers':headers}).subscribe((response) => {
+      console.log(response);
+    })
 
-    // console.log(this.authorize);
-    // this.formz.reset();
-    // this.appServ.onSubmit(this.authorize).subscribe((response) => {
-    //   console.log(response);
-
-    // })
   }
 
 

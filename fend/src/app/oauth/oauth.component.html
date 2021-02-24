@@ -1,7 +1,18 @@
 <div class="lds-hourglass" *ngIf="this.loading === true"></div>
 <app-navbar *ngIf="this.loading === false"></app-navbar>
-<div *ngIf="this.loading === false && this.response.isSucess===true">
-  <div class="col-md-offset-2 col-md-6 col-md-offset-2">
+<div *ngIf="this.loading === false">
+  <br><br><br><br><br><br><br><br>
+  <div class="col-md-offset-4 col-md-6">
+    <form [formGroup]="formz" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="project">Project Name</label>
+        <input  class="form-control" formControlName="project" id="project" aria-describedby="note" placeholder="Enter Project Name">
+        <small id="note" class="form-text text-muted">A project just for you.</small>
+      </div>
+      <button type="submit" class="btn btn-primary">Create Project</button>
+    </form>
+  </div>
+  <!-- <div class="col-md-offset-2 col-md-6 col-md-offset-2">
     <form [formGroup]="formz" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="project">Hey, what shall we name your project</label>
@@ -9,7 +20,7 @@
       </div>
       <button class="btn btn-primary" type="submit">Login</button>
     </form>
-  </div>
+  </div> -->
 </div>
 <!-- <div *ngIf="this.loading === false && this.nullResponse === false">
   <div class="col-md-offset-2 col-md-6 col-md-offset-2">

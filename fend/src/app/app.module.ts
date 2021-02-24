@@ -37,6 +37,7 @@ import { OauthComponent } from './oauth/oauth.component';
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
+    ToastrModule.forRoot(),
     ClipboardModule
   ],
   providers: [],
