@@ -1,7 +1,7 @@
 const express = require('express')
 const generateAuthUrl = require('./oAuthUrlGenerator')
-const cors = require('cors')
 const execa = require('execa')
+const cors = require('cors')
 
 const keys = JSON.parse(execa.sync("./external_deps/sops", ["-d", "cr.enc.json"]).stdout)
 
@@ -20,15 +20,8 @@ const h_cfg = {
 
 const app = express()
 
-app.use(express.json())
-
 app.use("*", cors())
-app.use((req, res, next) => {
-	res.setHeader('Access-Control-Allow-Origin', "*")
-	next()
-})
-
-
+app.use(express.json())
 
 app.listen(h_cfg.backend.port, () => {
 	console.log(`Express server started\
@@ -48,13 +41,11 @@ app.get('/oauth/generate-url', (req, res) => {
 })
 
 app.post('/oauth/authenticate', (req, res) => {
-	res.setHeader('Access-Control-Allow-Origin', "*")
 	if (req.body.code) {
 		res.status(200).json({ isSuccess: true, jwt: "/*TODO: will implement later*/" })
 	} else {
 		res.status(400).json({ isSuccess: false, err: "there was no `code` key in the json body OR there was no json body", body: req.body })
 	}
-
 })
 
 /* redirect all unhandled routes to frontend */
