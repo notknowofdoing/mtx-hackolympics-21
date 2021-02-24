@@ -2,6 +2,26 @@
 
 ### PROBLEM B
 
+> Deployment and testing needs API keys
+> But I can't share it with my collabs on Git? :(
+
+### Enter GeaCPyy Deploy
+
+Save yourself all the stress of leaking credentials and the FOMO (fear of missing out) on credential mods!
+
+GeaCPyy Deploy requests your permission via Google's oAuth2 flow to access your Google Cloud Platform Resources. Then you provide a name, which creates the project and an API key. Does some backend magic with the help of [mozilla/sops](//github.com/mozilla/sops) and gives you an encrypted .json file that you can add to your project. You can use it from your local machine by importing it (as long as you are a member in the project, of course) where you are logged into Google's Cloud SDK! And undoubtedly, deploying to Google Cloud uses the environment to unlock your keys. Neat, huh?
+
+### Technical stuff
+
+1. It's incomplete
+2. There comments throught the backend describing what is going on or rather should be going on
+3. Resource/property selection is not implemented (or planned for implementation) to offer the user maximum flexibility.
+
+
+### Why this problem statement?
+
+It was the problem that gave us the most room for implementing and improving at the basics rather than an obscure usage or one that does not immediately serve us. As developers, we felt a closeness to the problem and discovery SOPS as a solution piqued our interest to use it further (including in the application itself). Another deciding factor was the extensibility offerred by Google's APIs and their good documentation.
+
 #### PROBLEM
 
 Write a simple web page + backend API (JS/HTML/CSS) that can be used to:

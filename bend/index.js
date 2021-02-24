@@ -54,6 +54,7 @@ if (h_cfg.env === 'dev') {
 app.get('/oauth/generate-url', (req, res) => {
 	generateAuthUrl(keys, h_cfg.env)
 		.then((authUrl) => {
+			/*redirect to oAuth2 consent page*/
 			res.status(302).redirect(authUrl)
 		})
 })
