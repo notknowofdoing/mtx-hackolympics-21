@@ -2,8 +2,22 @@ const express = require('express')
 const generateAuthUrl = require('./oAuthUrlGenerator')
 const execa = require('execa')
 const cors = require('cors')
+const platform = require('os').platform()
+const arch = require('os').arch()
 
-const keys = JSON.parse(execa.sync("./external_deps/sops", ["-d", "cr.enc.json"]).stdout)
+let keys
+if (platform === 'linux' && arch === 'x64' && !process.env.useUnEnc) {
+	/*included sops binary compiled for linux_x86-64 (assumed server plat/arch)*/
+	keys = JSON.parse(execa.sync("./external_deps/sops", ["-d", "cr.enc.json"]).stdout)
+	console.log("using credentials encrypted by mozilla/SOPS + GPC KMS")
+} else {
+	try { keys = require('./cr.json') }
+	catch (err) {
+		console.error(err)
+		console.error(`credentials file './cr.json' not found. add it to ${__dirname}`)
+	}
+	console.log("using unencrypted credentials")
+} console.log(`running on ${platform}_${arch}`)
 
 /* configuration values for hosting */
 const h_cfg = {
