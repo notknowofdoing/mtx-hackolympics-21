@@ -13,6 +13,6 @@ export class HomeComponent implements OnInit {
   }
 
   OAuth(){
-    window.location.assign('http://localhost:3000/oauth/authenticate')
+    window.location.assign('http://localhost:3000/oauth/generate-url')
   }
 }
