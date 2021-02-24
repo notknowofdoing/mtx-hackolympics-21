@@ -24,7 +24,7 @@ export class OauthComponent implements OnInit {
     this.key = {
       code: this.param
     }
-    this.http.post("localhost:3000/oauth/authenticate", this.key).subscribe((response) => {
+    this.http.post("http://localhost:3000/oauth/authenticate", this.key).subscribe((response) => {
       console.log(response)
     })
   }
