@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 import { MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -28,6 +29,7 @@ import { OauthComponent } from './oauth/oauth.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

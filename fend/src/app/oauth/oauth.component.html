@@ -1,6 +1,6 @@
 <div class="lds-hourglass" *ngIf="this.loading === true"></div>
-<app-navbar *ngIf="this.loading === false || this.nullResponse === true"></app-navbar>
-<div *ngIf="this.loading === false && this.nullResponse === true">
+<app-navbar *ngIf="this.loading === false"></app-navbar>
+<div *ngIf="this.loading === false && this.response.isSucess===true">
   <div class="col-md-offset-2 col-md-6 col-md-offset-2">
     <form [formGroup]="formz" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -11,11 +11,11 @@
     </form>
   </div>
 </div>
-<div *ngIf="this.loading === false && this.nullResponse === false">
+<!-- <div *ngIf="this.loading === false && this.nullResponse === false">
   <div class="col-md-offset-2 col-md-6 col-md-offset-2">
     <label for="clipboard-example-textarea">Text to be copied</label>
     <input id="clipboard-example-textarea" [(ngModel)]="this.response">
     <button [cdkCopyToClipboard]="this.response">Copy to clipboard</button>
   </div>
-</div>
+</div> -->
 
