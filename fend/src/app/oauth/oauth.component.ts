@@ -22,6 +22,7 @@ export class OauthComponent implements OnInit {
   formz:FormGroup;
   nullResponse:boolean = true;
   response:any;
+  check:boolean = false;
 
   constructor(private activRoute: ActivatedRoute, private http:HttpClient, private appServ: AppService, private tostr:ToastrService) { }
 
@@ -45,12 +46,12 @@ export class OauthComponent implements OnInit {
       // }
       if(this.response.isSuccess===true){
         setTimeout(() => {
-          this.tostr.success("You can now create a component");
+          this.tostr.success("You can now create a project");
         }, 2500)
       }
       else{
         setTimeout(() => {
-          this.tostr.error("You can now create a component");
+          this.tostr.error("You can now create a project");
         }, 2500)
       }
     })
@@ -64,7 +65,10 @@ export class OauthComponent implements OnInit {
     console.log(name)
     const headers= new HttpHeaders().set('content-type', 'application/json').set('Access-Control-Allow-Origin', '*').append('token', this.token);
     // return this.httpClient.get(this.baseURL + 'users/' + userName + '/repos', { 'headers': headers })
-    this.http.post("http://localhost/3000/auth/create",name, {'headers':headers}).subscribe((response) => {
+    this.http.post("http://localhost/3000/auth/create?projectName="+name, {'headers':headers}).subscribe((response) => {
+      if(this.response != null){
+        this.check = true;
+      }
       console.log(response);
     })
 

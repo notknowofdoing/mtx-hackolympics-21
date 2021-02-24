@@ -1,8 +1,8 @@
 <div class="lds-hourglass" *ngIf="this.loading === true"></div>
 <app-navbar *ngIf="this.loading === false"></app-navbar>
-<div *ngIf="this.loading === false">
-  <br><br><br><br><br><br><br><br>
-  <div class="col-md-offset-4 col-md-6">
+<br><br><br><br><br><br><br><br><br><br>
+<div *ngIf="this.loading === false" class="row">
+  <div class="col-md-6 offset-3">
     <form [formGroup]="formz" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="project">Project Name</label>
@@ -12,21 +12,12 @@
       <button type="submit" class="btn btn-primary">Create Project</button>
     </form>
   </div>
-  <!-- <div class="col-md-offset-2 col-md-6 col-md-offset-2">
-    <form [formGroup]="formz" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="project">Hey, what shall we name your project</label>
-        <input form-control="project" id="project" placeholder="projectName">
-      </div>
-      <button class="btn btn-primary" type="submit">Login</button>
-    </form>
-  </div> -->
 </div>
-<!-- <div *ngIf="this.loading === false && this.nullResponse === false">
+<div *ngIf="this.check === true">
   <div class="col-md-offset-2 col-md-6 col-md-offset-2">
     <label for="clipboard-example-textarea">Text to be copied</label>
     <input id="clipboard-example-textarea" [(ngModel)]="this.response">
     <button [cdkCopyToClipboard]="this.response">Copy to clipboard</button>
   </div>
-</div> -->
+</div>
 
